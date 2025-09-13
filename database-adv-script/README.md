@@ -53,3 +53,30 @@ WHERE property_id IN (
     HAVING AVG(rating) > 4.0
 );
 ```
+
+# SQL Aggregations & Window Functions – Airbnb Clone Backend
+
+## 🎯 Objective
+
+This exercise demonstrates how to use **SQL aggregation** and **window functions** to analyze data in the Airbnb Clone database.
+
+---
+
+## 🧩 Queries
+
+### 1. Aggregation – Total Bookings per User
+
+Count the total number of bookings made by each user.
+
+```sql
+SELECT
+    u.user_id,
+    u.first_name,
+    u.last_name,
+    COUNT(b.booking_id) AS total_bookings
+FROM "User" u
+LEFT JOIN Booking b
+    ON u.user_id = b.user_id
+GROUP BY u.user_id, u.first_name, u.last_name
+ORDER BY total_bookings DESC;
+```
