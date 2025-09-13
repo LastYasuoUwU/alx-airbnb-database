@@ -61,24 +61,8 @@ CREATE INDEX IF NOT EXISTS idx_properties_location_price
 CREATE INDEX IF NOT EXISTS idx_properties_availability_price
     ON properties (availability, price);
 
--- 1️⃣  Count bookings per user
-EXPLAIN (ANALYZE, BUFFERS)
-SELECT u.id, u.email, COUNT(b.id) AS total_bookings
-FROM users u
-LEFT JOIN bookings b ON u.id = b.user_id
-   AND b.status = 'confirmed'
-GROUP BY u.id, u.email
-ORDER BY total_bookings DESC;
-
--- 2️⃣  Rank properties by booking count
-EXPLAIN (ANALYZE, BUFFERS)
-WITH pb AS (
-  SELECT p.id, p.title, COUNT(b.id) AS booking_count
-  FROM properties p
-  LEFT JOIN bookings b ON p.id = b.property_id
-     AND b.status = 'confirmed'
-  GROUP BY p.id, p.title
-)
-SELECT *, ROW_NUMBER() OVER (ORDER BY booking_count DESC) AS rank
-FROM pb
-ORDER BY rank;
+EXPLAIN ANALYZE
+SELECT *
+FROM Booking b
+JOIN "User" u ON b.user_id = u.user_id
+WHERE u.email = 'alice@example.com';
