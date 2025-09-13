@@ -28,3 +28,28 @@ FROM Booking b
 INNER JOIN "User" u
     ON b.user_id = u.user_id;
 ```
+
+# SQL Subqueries Practice – Airbnb Clone Backend
+
+## 🎯 Objective
+
+This exercise demonstrates the use of **non-correlated** and **correlated subqueries** in SQL, applied to the Airbnb Clone database schema.
+
+---
+
+## 🧩 Queries
+
+### 1. Non-Correlated Subquery
+
+Find all properties where the **average rating** is greater than 4.0.
+
+```sql
+SELECT property_id, name, location
+FROM Property
+WHERE property_id IN (
+    SELECT property_id
+    FROM Review
+    GROUP BY property_id
+    HAVING AVG(rating) > 4.0
+);
+```
