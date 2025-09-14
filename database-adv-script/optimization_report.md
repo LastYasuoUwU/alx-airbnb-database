@@ -1,16 +1,15 @@
-# SQL Query Performance Optimization – Airbnb Clone Backend
+# Query Optimization Report – Airbnb Clone Database
 
 ## 🎯 Objective
-The goal of this exercise is to **refactor complex queries** in order to improve database performance.  
-We analyze an initial query, identify inefficiencies, and optimize it using **better indexing, reduced joins, and column selection**.
+
+Refactor a **complex query** that retrieves bookings, user details, property details, and payment details in order to improve execution performance.
 
 ---
 
 ## 📝 Initial Query
-Retrieves all bookings with user details, property details, and payment details.
 
 ```sql
-SELECT 
+SELECT
     b.booking_id,
     b.start_date,
     b.end_date,
@@ -32,3 +31,4 @@ JOIN "User" u ON b.user_id = u.user_id
 JOIN Property p ON b.property_id = p.property_id
 LEFT JOIN Payment pay ON b.booking_id = pay.booking_id
 ORDER BY b.created_at DESC;
+```
